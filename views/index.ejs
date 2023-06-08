@@ -2,23 +2,56 @@
 <html>
   <head>
     <title>Shopping Cart</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+    </style>
   </head>
   <body>
     <h1>Shopping Cart</h1>
-    <ul>
+    <% if (shoppingCart !== null) { %>
+
+    <h1><% shoppingCart %></h1>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
       <% shoppingCart.forEach((item, index) => { %>
-      <li>
-        <%= item.name %> - $<%= item.price %>
-        <form
-          action="/remove/<%= index %>"
-          method="GET"
-          style="display: inline"
-        >
-          <button type="submit">Remove</button>
-        </form>
-      </li>
+      <tr>
+        <td><%= item.name %></td>
+        <td>$<%= item.price %></td>
+        <td>
+          <form
+            action="/remove/<%= index %>"
+            method="GET"
+            style="display: inline"
+          >
+            <button type="submit">Remove</button>
+          </form>
+          <form
+            action="/edit/<%= index %>"
+            method="GET"
+            style="display: inline"
+          >
+            <button type="submit">Edit</button>
+          </form>
+        </td>
+      </tr>
       <% }); %>
-    </ul>
+    </table>
+
+    <% } %>
     <a href="/add">Add Item</a>
   </body>
 </html>
